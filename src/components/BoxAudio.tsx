@@ -37,7 +37,12 @@ const BoxAudio = () => {
     return (
         <Box classN="w-full md:w-3/4 p-4 flex flex-col items-center justify-center gap-4">
             <h3 className="text-lg font-light text-white select-none">{audio.name}</h3>
-            <img src={audio.image} className="rounded-md w-2/3 select-none" alt={audio.name} loading="lazy" />
+            <img
+                src={audio.image}
+                className={`rounded-full w-[200px] h-[200px] select-none ${audio.isPlaying && 'animate-spin-slow'}`}
+                alt={audio.name}
+                loading="lazy"
+            />
             <div className="w-2/3 flex flex-row justify-between px-2 md:px-4 gap-4 md:gap-4">
                 <div className="invisible">
                     <ImLoop />
