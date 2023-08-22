@@ -4,6 +4,8 @@ export type audioType = {
     id: number;
     image: string;
     duration: number;
+    isPlaying?: boolean;
+    isLoop?: boolean;
 };
 
 export type AudioContextType = {
@@ -11,4 +13,7 @@ export type AudioContextType = {
     onPickAudio: (audio: audioType) => void;
     onClickNext: (audio: audioType) => void;
     onClickPrev: (audio: audioType) => void;
+    onClickPlay: () => void;
+    onClickPause: () => void;
+    onClickToggleLoop: () => void;
 };

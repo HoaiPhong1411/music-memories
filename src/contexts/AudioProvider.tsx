@@ -8,7 +8,6 @@ import React, { ReactNode, createContext, useEffect, useReducer } from 'react';
 export const AudioContext = createContext<AudioContextType | null>(null);
 
 const AudioProvider = ({ children }: { children: ReactNode }) => {
-    //   const {state} = useAudioReducer();
     const [audio, dispatch] = useReducer(audioReducer, initialStateAudio);
 
     const onPickAudio = (audio: audioType) => {
@@ -23,8 +22,22 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
         dispatch({ type: typeActionAudio.PREV, payload: audio });
     };
 
+    const onClickPlay = () => {
+        dispatch({ type: typeActionAudio.PLAY, payload: audio });
+    };
+
+    const onClickPause = () => {
+        dispatch({ type: typeActionAudio.PAUSE, payload: audio });
+    };
+
+    const onClickToggleLoop = () => {
+        dispatch({ type: typeActionAudio.LOOP, payload: audio });
+    };
+
     return (
-        <AudioContext.Provider value={{ audio, onPickAudio, onClickNext, onClickPrev }}>
+        <AudioContext.Provider
+            value={{ audio, onPickAudio, onClickNext, onClickPrev, onClickPlay, onClickPause, onClickToggleLoop }}
+        >
             {children}
         </AudioContext.Provider>
     );
