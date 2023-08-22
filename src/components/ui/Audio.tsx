@@ -16,24 +16,8 @@ const TextTime = ({ children }: { children: string }) => {
 const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRef>) => {
     const { audio, onClickPlay, onClickPause, onClickNext } = useAudio();
     const [startTime, setStartTime] = useState<number>(0);
-    const [currentTime, setCurrentTime] = useState<number>(0);
     const progressBarRef = useRef<any>(null);
     const audioRef = useRef<any>(null);
-    const interVal = useRef<any>(null);
-
-    // useEffect(() => {
-    //     if (audio.isPlaying && audioRef.current) {
-    //         const duration = audioRef.current?.duration;
-    //         interVal.current = setInterval(() => {
-    //             const currentTime = audioRef.current?.currentTime;
-    //             const percent = _.toNumber(((duration / 100) * currentTime).toFixed(2));
-    //             handleStyleProgressBar(percent);
-    //             setStartTime(currentTime || 0);
-    //         }, 200);
-    //     } else {
-    //         interVal.current && clearInterval(interVal.current);
-    //     }
-    // }, [audio.isPlaying]);
 
     useImperativeHandle(ref, () => ({
         play: () => {
@@ -45,10 +29,6 @@ const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRe
             onClickPause();
         },
     }));
-
-    const handleStyleProgressBar = (percent: number) => {
-        progressBarRef.current.value = percent;
-    };
 
     const handleChangeProgressBar = (e: ChangeEvent<HTMLInputElement>) => {
         const percent = (audioRef.current.duration / 100) * _.toNumber(e.target.value);
@@ -73,11 +53,7 @@ const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRe
         <div className="w-full flex flex-row gap-4 justify-center items-center">
             <TextTime>{formatTime(startTime)}</TextTime>
             <div className="w-8/12 h-2 bg-opacity-gray rounded-lg flex flex-row items-center">
-                {/* <div ref={progressBarRef} className={`h-full bg-white relative rounded-lg`}>
-                    <div className="w-3 h-3 bg-white rounded-full absolute -right-2 top-0 -translate-y-[2px]" />
-                </div> */}
                 <input
-                    // value={currentTime}
                     defaultValue={0}
                     min={0}
                     max={audioRef.current?.duration || 0}
