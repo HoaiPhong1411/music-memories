@@ -21,6 +21,7 @@ const config: Config = {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
                 'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
                 home: "url('../../public/images/background.jpeg')",
+                'gradient-secondary': 'linear-gradient(to left, rgb(97 148 119 / 60%))',
             },
             animation: {
                 'spin-slow': 'spin 7s linear infinite',

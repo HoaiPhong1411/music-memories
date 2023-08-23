@@ -3,7 +3,7 @@ import useAudioReducer from '@/hooks/useAudioReducer';
 import audioReducer, { initialStateAudio } from '@/store/audioReducer';
 import { AudioContextType, audioType } from '@/types/audio';
 import { typeActionAudio } from '@/types/reducer';
-import React, { ReactNode, createContext, useEffect, useReducer } from 'react';
+import React, { ReactNode, createContext, useCallback, useEffect, useReducer } from 'react';
 
 export const AudioContext = createContext<AudioContextType | null>(null);
 
@@ -22,17 +22,17 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
         dispatch({ type: typeActionAudio.PREV, payload: audio });
     };
 
-    const onClickPlay = () => {
+    const onClickPlay = useCallback(() => {
         dispatch({ type: typeActionAudio.PLAY, payload: audio });
-    };
+    }, [audio]);
 
-    const onClickPause = () => {
+    const onClickPause = useCallback(() => {
         dispatch({ type: typeActionAudio.PAUSE, payload: audio });
-    };
+    }, [audio]);
 
-    const onClickToggleLoop = () => {
+    const onClickToggleLoop = useCallback(() => {
         dispatch({ type: typeActionAudio.LOOP, payload: audio });
-    };
+    }, [audio]);
 
     return (
         <AudioContext.Provider
