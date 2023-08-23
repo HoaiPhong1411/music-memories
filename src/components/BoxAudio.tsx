@@ -69,11 +69,11 @@ const BoxAudio = () => {
                     </div>
                 )}
             </div>
-            <div className="w-full md:w-2/3 flex flex-row justify-between items-center px-2 md:px-4 gap-4 ">
+            <div className="w-full lg:w-2/3 flex flex-row justify-between items-center px-2 md:px-4 gap-4 ">
                 <div className="invisible">
                     <ImLoop />
                 </div>
-                <div className="w-7/12 md:w-8/12 flex flex-row justify-between items-center">
+                <div className="w-7/12 lg:w-6/12 flex flex-row justify-between items-center">
                     <ButtonPrev onClick={() => onClickPrev(audio)} />
                     <Button onClick={handleClick} classN="rounded-full p-2 bg-opacity-secondary">
                         {audio.isPlaying ? (
