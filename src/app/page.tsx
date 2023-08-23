@@ -13,8 +13,8 @@ export default function Home() {
     return (
         <>
             <AudioProvider>
-                <div className="bg-home w-full min-h-screen flex justify-center items-center">
-                    <Box classN="w-full md:w-3/4 p-4 md:p-6 flex flex-col-reverse md:flex-row gap-4 md:gap-6 my-16 md:my-0 mx-4">
+                <div className="bg-home-mobile md:bg-home w-full h-screen flex justify-center items-center bg-contain">
+                    <Box classN="w-full md:w-3/4 p-4 md:p-6 flex flex-col-reverse md:flex-row gap-4 md:gap-6 mx-4">
                         <BoxListAudio audios={audios} />
                         <BoxAudio />
                     </Box>

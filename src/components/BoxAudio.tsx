@@ -30,7 +30,6 @@ const BoxAudio = () => {
     const audioRef = useRef<Audio>(null);
     const { audio, onClickNext, onClickPrev, onClickToggleLoop, onClickPause, onClickPlay } = useAudio();
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const sizeImage = '200px';
     const handlePlay = useCallback(() => {
         audioRef.current?.play();
         onClickPlay();
@@ -53,32 +52,30 @@ const BoxAudio = () => {
     }, [audio, audioRef.current]);
 
     return (
-        <Box classN="w-full md:w-3/4 p-4 flex flex-col items-center justify-center gap-4">
+        <Box classN="w-full md:w-3/4 p-4 flex flex-col items-center justify-center gap-6">
             <h3 className="text-lg font-light text-white select-none">{audio.name}</h3>
             <div className="relative">
                 <img
                     src={audio.image}
-                    className={`rounded-full w-[${sizeImage}] h-[${sizeImage}] select-none ${
-                        audio.isPlaying && 'animate-spin-slow'
-                    }`}
+                    className={`rounded-full w-[200px] h-[200px] select-none ${audio.isPlaying && 'animate-spin-slow'}`}
                     alt={audio.name}
                     loading="lazy"
                 />
                 {isLoading && (
                     <div className="absolute top-0 left-0">
                         <div
-                            className={`w-[${sizeImage}] h-[${sizeImage}] border-4 border-opacity-secondary border-l-opacity-gray rounded-full animate-spin `}
+                            className={`w-[200px] h-[200px] border-4 border-opacity-secondary border-l-opacity-gray rounded-full animate-spin `}
                         ></div>
                     </div>
                 )}
             </div>
-            <div className="w-2/3 flex flex-row justify-between px-2 md:px-4 gap-4 md:gap-4">
+            <div className="w-full md:w-2/3 flex flex-row justify-between items-center px-2 md:px-4 gap-4 ">
                 <div className="invisible">
                     <ImLoop />
                 </div>
-                <div className="w-6/12 md:w-8/12 flex flex-row gap-4 md:gap-8 justify-center">
+                <div className="w-7/12 md:w-8/12 flex flex-row justify-between items-center">
                     <ButtonPrev onClick={() => onClickPrev(audio)} />
-                    <Button onClick={handleClick}>
+                    <Button onClick={handleClick} classN="rounded-full p-2 bg-opacity-secondary">
                         {audio.isPlaying ? (
                             <FaPause className="text-xl md:text-base" />
                         ) : (
