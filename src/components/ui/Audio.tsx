@@ -7,7 +7,6 @@ interface AudioProps {}
 type AudioTypeRef = {
     play: () => void;
     pause: () => void;
-    duration: number;
 };
 
 const TextTime = ({ children }: { children: string }) => {
@@ -17,8 +16,6 @@ const TextTime = ({ children }: { children: string }) => {
 const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRef>) => {
     const { audio, onClickPlay, onClickPause, onClickNext } = useAudio();
     const [startTime, setStartTime] = useState<number>(0);
-    const [duration, setDuration] = useState<number>(0);
-
     const progressBarRef = useRef<any>(null);
     const audioRef = useRef<any>(null);
 
@@ -31,11 +28,10 @@ const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRe
             audioRef.current.pause();
             onClickPause();
         },
-        duration: audioRef.current.duration,
     }));
 
     const handleChangeProgressBar = (e: ChangeEvent<HTMLInputElement>) => {
-        const percent = (duration / 100) * _.toNumber(e.target.value);
+        const percent = (audioRef.current.duration / 100) * _.toNumber(e.target.value);
         if (audioRef.current) {
             audioRef.current.currentTime = percent;
             progressBarRef.current.value = percent;
@@ -43,6 +39,7 @@ const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRe
     };
 
     const handleTimeUpdate = () => {
+        const duration = audioRef.current?.duration;
         const percent = _.toNumber(((duration / 100) * audioRef.current.currentTime).toFixed(2));
         setStartTime(percent);
         progressBarRef.current.value = audioRef.current.currentTime;
@@ -51,12 +48,6 @@ const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRe
     const formatTime = (duration: number) => {
         return duration ? `${Math.floor(duration / 60)}:${(duration % 60).toFixed().padStart(2, '0')}` : '0:00';
     };
-
-    useEffect(() => {
-        if (audioRef.current && audioRef.current.duration !== duration) {
-            setDuration(audioRef.current.duration);
-        }
-    }, [audioRef.current]);
 
     return (
         <div className="w-full flex flex-row gap-4 justify-center items-center">
@@ -77,6 +68,7 @@ const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRe
                     src={audio.link}
                     ref={audioRef}
                     controls
+                    autoPlay
                     loop={audio.isLoop}
                     hidden
                     onEnded={() => {
@@ -85,7 +77,9 @@ const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRe
                     onTimeUpdate={handleTimeUpdate}
                 />
             </div>
-            <TextTime>{formatTime(duration)}</TextTime>
+            <TextTime>
+                {(audioRef.current?.duration && formatTime(audioRef.current.duration)) || formatTime(startTime)}
+            </TextTime>
         </div>
     );
 });
