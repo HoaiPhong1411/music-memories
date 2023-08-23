@@ -22,11 +22,9 @@ const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRe
     useImperativeHandle(ref, () => ({
         play: () => {
             audioRef.current.play();
-            onClickPlay();
         },
         pause: () => {
             audioRef.current.pause();
-            onClickPause();
         },
     }));
 
@@ -68,7 +66,6 @@ const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRe
                     src={audio.link}
                     ref={audioRef}
                     controls
-                    autoPlay
                     loop={audio.isLoop}
                     hidden
                     onEnded={() => {

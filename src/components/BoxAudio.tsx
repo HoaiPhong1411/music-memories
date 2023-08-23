@@ -28,21 +28,50 @@ const ButtonPrev = ({ onClick }: { onClick: () => void }) => {
 
 const BoxAudio = () => {
     const audioRef = useRef<Audio>(null);
-    const { audio, onClickNext, onClickPrev, onClickToggleLoop } = useAudio();
+    const { audio, onClickNext, onClickPrev, onClickToggleLoop, onClickPause, onClickPlay } = useAudio();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const sizeImage = '200px';
+    const handlePlay = useCallback(() => {
+        audioRef.current?.play();
+        onClickPlay();
+    }, []);
+
+    const handlePause = useCallback(() => {
+        audioRef.current?.pause();
+        onClickPause();
+    }, []);
 
     const handleClick = useCallback(() => {
-        audio.isPlaying ? audioRef.current?.pause() : audioRef.current?.play();
-    }, [audio, audioRef]);
+        audio.isPlaying ? handlePause() : handlePlay();
+    }, [audio, audioRef.current]);
+
+    useEffect(() => {
+        if (audioRef.current) {
+            audio.isPlaying && audioRef.current.play();
+            setIsLoading(false);
+        }
+    }, [audio, audioRef.current]);
 
     return (
         <Box classN="w-full md:w-3/4 p-4 flex flex-col items-center justify-center gap-4">
             <h3 className="text-lg font-light text-white select-none">{audio.name}</h3>
-            <img
-                src={audio.image}
-                className={`rounded-full w-[200px] h-[200px] select-none ${audio.isPlaying && 'animate-spin-slow'}`}
-                alt={audio.name}
-                loading="lazy"
-            />
+            <div className="relative">
+                <img
+                    src={audio.image}
+                    className={`rounded-full w-[${sizeImage}] h-[${sizeImage}] select-none ${
+                        audio.isPlaying && 'animate-spin-slow'
+                    }`}
+                    alt={audio.name}
+                    loading="lazy"
+                />
+                {isLoading && (
+                    <div className="absolute top-0 left-0">
+                        <div
+                            className={`w-[${sizeImage}] h-[${sizeImage}] border-4 border-opacity-secondary border-l-opacity-gray rounded-full animate-spin `}
+                        ></div>
+                    </div>
+                )}
+            </div>
             <div className="w-2/3 flex flex-row justify-between px-2 md:px-4 gap-4 md:gap-4">
                 <div className="invisible">
                     <ImLoop />
