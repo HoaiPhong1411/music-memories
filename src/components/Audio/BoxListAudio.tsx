@@ -1,10 +1,10 @@
 import React from 'react';
-import Box from './ui/Box';
 import { audioType } from '@/types/audio';
 import _ from 'lodash';
 import AudioItem from './AudioItem';
 import useAudio from '@/hooks/useAudio';
 import ListAudio from './ListAudio';
+import Box from '../ui/Box';
 
 const BoxListAudio = ({ audios }: { audios: audioType[] }) => {
     return (

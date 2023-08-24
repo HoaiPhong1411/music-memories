@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Box from './ui/Box';
 import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
 import { TfiMenu } from 'react-icons/tfi';
 import { ImLoop } from 'react-icons/im';
 import { FaPause } from 'react-icons/fa';
-import Button from './ui/Button';
 import useAudio from '@/hooks/useAudio';
 import _ from 'lodash';
-import Audio from './ui/Audio';
 import Image from 'next/image';
+import Button from '../ui/Button';
+import Box from '../ui/Box';
+import Audio from './Audio';
 
 const ButtonNext = ({ onClick }: { onClick: () => void }) => {
     return (

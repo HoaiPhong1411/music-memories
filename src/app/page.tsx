@@ -4,11 +4,11 @@ import { createContext, useRef } from 'react';
 import _ from 'lodash';
 import { audioType } from '@/types/audio';
 import Box from '../components/ui/Box';
-import BoxAudio from '../components/BoxAudio';
-import BoxListAudio from '../components/BoxListAudio';
 import { audios } from '@/data/audios';
 import AudioProvider from '@/contexts/AudioProvider';
-import ModalAudio from '@/components/ModalAudio';
+import BoxListAudio from '@/components/Audio/BoxListAudio';
+import BoxAudio from '@/components/Audio/BoxAudio';
+import ModalAudio from '@/components/Audio/ModalAudio';
 
 export default function Home() {
     const modalRef = useRef<any>(null);
