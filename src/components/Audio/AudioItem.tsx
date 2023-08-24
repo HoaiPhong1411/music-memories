@@ -1,7 +1,7 @@
 import useAudio from '@/hooks/useAudio';
 import useAudioReducer from '@/hooks/useAudioReducer';
-import { audioType } from '@/types/audio';
-import { typeActionAudio } from '@/types/reducer';
+import { AudioType } from '@/types/audio';
+import { ActionAudioEnum } from '@/types/reducer';
 import React from 'react';
 
 const AudioItem = ({
@@ -9,7 +9,7 @@ const AudioItem = ({
     isSelected = false,
     handleClickItem,
 }: {
-    audio: audioType;
+    audio: AudioType;
     isSelected?: boolean;
     handleClickItem?: () => void;
 }) => {

@@ -2,7 +2,7 @@
 
 import { createContext, useRef } from 'react';
 import _ from 'lodash';
-import { audioType } from '@/types/audio';
+import { AudioType } from '@/types/audio';
 import Box from '../components/ui/Box';
 import { audios } from '@/data/audios';
 import AudioProvider from '@/contexts/AudioProvider';

@@ -1,15 +1,15 @@
 import AudioProvider from '@/contexts/AudioProvider';
 import audioReducer, { initialStateAudio } from '@/store/audioReducer';
-import { audioType } from '@/types/audio';
-import React, { ReducerWithoutAction, useContext, useReducer } from 'react'
+import { AudioType } from '@/types/audio';
+import React, { ReducerWithoutAction, useContext, useReducer } from 'react';
 
 const useAudioReducer = () => {
-  const [state, dispatch] = useReducer(audioReducer, initialStateAudio);
-  
-  return {
-    state,
-    dispatch
-    }
-}
+    const [state, dispatch] = useReducer(audioReducer, initialStateAudio);
 
-export default useAudioReducer
+    return {
+        state,
+        dispatch,
+    };
+};
+
+export default useAudioReducer;

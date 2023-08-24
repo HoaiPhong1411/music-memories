@@ -1,6 +1,6 @@
-import { audioType } from '@/types/audio';
+import { AudioType } from '@/types/audio';
 
-export const audios: audioType[] = [
+export const audios: AudioType[] = [
     {
         id: 1,
         name: 'Người con gái ta thương',

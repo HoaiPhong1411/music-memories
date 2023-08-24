@@ -1,4 +1,4 @@
-export type audioType = {
+export type AudioType = {
     link: string;
     name: string;
     id: number;
@@ -9,10 +9,10 @@ export type audioType = {
 };
 
 export type AudioContextType = {
-    audio: audioType;
-    onPickAudio: (audio: audioType) => void;
-    onClickNext: (audio: audioType) => void;
-    onClickPrev: (audio: audioType) => void;
+    audio: AudioType;
+    onPickAudio: (audio: AudioType) => void;
+    onClickNext: (audio: AudioType) => void;
+    onClickPrev: (audio: AudioType) => void;
     onClickPlay: () => void;
     onClickPause: () => void;
     onClickToggleLoop: () => void;

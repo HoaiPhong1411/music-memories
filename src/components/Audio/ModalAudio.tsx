@@ -1,13 +1,13 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import ListAudio from './ListAudio';
-import { audioType } from '@/types/audio';
+import { AudioType } from '@/types/audio';
 
 type ModalAudioType = {
     hidden: () => void;
     show: () => void;
 };
 
-const ModalAudio = forwardRef(({ audios }: { audios: audioType[] }, ref: React.ForwardedRef<ModalAudioType>) => {
+const ModalAudio = forwardRef(({ audios }: { audios: AudioType[] }, ref: React.ForwardedRef<ModalAudioType>) => {
     const modalRef = useRef<any>(null);
     const modalElementList = useRef<any>(null);
 

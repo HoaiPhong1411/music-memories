@@ -1,6 +1,6 @@
-import { audioType } from './audio';
+import { AudioType } from './audio';
 
-export enum typeActionAudio {
+export enum ActionAudioEnum {
     PICK = 'PICK',
     NEXT = 'NEXT',
     PREV = 'PREV',
@@ -9,7 +9,7 @@ export enum typeActionAudio {
     LOOP = 'LOOP',
 }
 
-export type actionAudioType = {
-    type: typeActionAudio;
-    payload: audioType;
+export type ActionAudioType = {
+    type: ActionAudioEnum;
+    payload: AudioType;
 };
