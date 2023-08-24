@@ -4,15 +4,24 @@ import { audioType } from '@/types/audio';
 import { typeActionAudio } from '@/types/reducer';
 import React from 'react';
 
-const AudioItem = ({ audio, isSelected = false }: { audio: audioType; isSelected?: boolean }) => {
+const AudioItem = ({
+    audio,
+    isSelected = false,
+    handleClickItem,
+}: {
+    audio: audioType;
+    isSelected?: boolean;
+    handleClickItem?: () => void;
+}) => {
     const { onPickAudio } = useAudio();
 
-    const handleClickItem = () => {
+    const handleClickAudioItem = () => {
         onPickAudio(audio);
+        handleClickItem?.();
     };
     return (
         <li
-            onClick={handleClickItem}
+            onClick={handleClickAudioItem}
             className={`flex flex-row items-center w-full gap-2 cursor-pointer rounded-md p-2 active:bg-opacity-white hover:bg-hover-secondary transition-all border-b border-opacity-secondary ${
                 isSelected && 'bg-opacity-secondary'
             }`}

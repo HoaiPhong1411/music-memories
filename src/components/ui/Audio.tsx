@@ -1,6 +1,15 @@
 import useAudio from '@/hooks/useAudio';
 import _ from 'lodash';
-import React, { ChangeEvent, Ref, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, {
+    ChangeEvent,
+    KeyboardEvent,
+    Ref,
+    forwardRef,
+    useEffect,
+    useImperativeHandle,
+    useRef,
+    useState,
+} from 'react';
 
 interface AudioProps {}
 

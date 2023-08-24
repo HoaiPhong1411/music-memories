@@ -26,6 +26,28 @@ const config: Config = {
             },
             animation: {
                 'spin-slow': 'spin 7s linear infinite',
+                'up-modal': 'downToUp 0.25s linear forwards',
+                'down-modal': 'upToDown 0.25s linear forwards',
+                'opacity-hidden': 'opacityHidden 0.25s linear forwards',
+                'opacity-show': 'opacityShow 0.25s linear forwards',
+            },
+            keyframes: {
+                downToUp: {
+                    '0%': { transform: 'translateY(300px)', opacity: '0' },
+                    '100%': { transform: 'translateY(0)', opacity: '1' },
+                },
+                upToDown: {
+                    '0%': { transform: 'translateY(0px)', opacity: '1' },
+                    '100%': { transform: 'translateY(300px)', opacity: '0' },
+                },
+                opacityHidden: {
+                    '0%': { opacity: '1' },
+                    '100%': { opacity: '0' },
+                },
+                opacityShow: {
+                    '0%': { opacity: '0' },
+                    '100%': { opacity: '1' },
+                },
             },
         },
     },

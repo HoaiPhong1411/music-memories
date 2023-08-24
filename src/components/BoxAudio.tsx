@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Box from './ui/Box';
 import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
+import { TfiMenu } from 'react-icons/tfi';
 import { ImLoop } from 'react-icons/im';
 import { FaPause } from 'react-icons/fa';
 import Button from './ui/Button';
@@ -26,7 +27,7 @@ const ButtonPrev = ({ onClick }: { onClick: () => void }) => {
     );
 };
 
-const BoxAudio = () => {
+const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
     const audioRef = useRef<Audio>(null);
     const { audio, onClickNext, onClickPrev, onClickToggleLoop, onClickPause, onClickPlay } = useAudio();
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -40,9 +41,9 @@ const BoxAudio = () => {
         onClickPause();
     }, []);
 
-    const handleClick = useCallback(() => {
+    const handleClick = () => {
         audio.isPlaying ? handlePause() : handlePlay();
-    }, [audio, audioRef.current]);
+    };
 
     useEffect(() => {
         if (audioRef.current) {
@@ -53,18 +54,28 @@ const BoxAudio = () => {
 
     return (
         <Box classN="w-full md:w-3/4 p-4 flex flex-col items-center justify-center gap-6">
-            <h3 className="text-lg font-light text-white select-none">{audio.name}</h3>
+            <div className="w-full flex flex-row justify-between md:justify-center items-center">
+                <div onClick={clickShowMenu} className="hover:text-opacity-white md:hidden">
+                    <TfiMenu className="text-xl" />
+                </div>
+                <h3 className="text-lg font-light text-white select-none">{audio.name}</h3>
+                <div className="invisible md:hidden">
+                    <TfiMenu />
+                </div>
+            </div>
             <div className="relative">
                 <img
                     src={audio.image}
-                    className={`rounded-full w-[200px] h-[200px] select-none ${audio.isPlaying && 'animate-spin-slow'}`}
+                    className={`rounded-full w-[150px] h-[150px] md:w-[200px] md:h-[200px] select-none ${
+                        audio.isPlaying && 'animate-spin-slow'
+                    }`}
                     alt={audio.name}
                     loading="lazy"
                 />
                 {isLoading && (
                     <div className="absolute top-0 left-0">
                         <div
-                            className={`w-[200px] h-[200px] border-4 border-opacity-secondary border-l-opacity-gray rounded-full animate-spin `}
+                            className={`w-[150px] h-[150px] md:w-[200px] md:h-[200px] border-4 border-opacity-secondary border-l-opacity-gray rounded-full animate-spin `}
                         ></div>
                     </div>
                 )}
