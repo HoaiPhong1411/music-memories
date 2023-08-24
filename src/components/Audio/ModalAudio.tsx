@@ -19,7 +19,7 @@ const ModalAudio = forwardRef(({ audios }: { audios: AudioType[] }, ref: React.F
     const handleHidden = () => {
         setTimeout(() => {
             modalRef.current.classList.add('hidden');
-        }, 350);
+        }, 300);
         modalElementList.current.classList.remove('animate-up-modal');
         modalElementList.current.classList.add('animate-down-modal');
         // modalRef.current.classList.add('opacity-hidden');

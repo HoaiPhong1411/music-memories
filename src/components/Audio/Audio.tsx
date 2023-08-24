@@ -23,7 +23,7 @@ const TextTime = ({ children }: { children: string }) => {
 };
 
 const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRef>) => {
-    const { audio, onClickPlay, onClickPause, onClickNext } = useAudio();
+    const { audio, isLoop, onClickPlay, onClickPause, onClickNext } = useAudio();
     const [startTime, setStartTime] = useState<number>(0);
     const progressBarRef = useRef<any>(null);
     const audioRef = useRef<any>(null);
@@ -75,7 +75,7 @@ const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRe
                     src={audio.link}
                     ref={audioRef}
                     controls
-                    loop={audio.isLoop}
+                    loop={isLoop}
                     hidden
                     onEnded={() => {
                         onClickNext(audio);

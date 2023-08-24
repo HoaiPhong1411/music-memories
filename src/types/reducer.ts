@@ -1,4 +1,4 @@
-import { AudioType } from './audio';
+import { AudioType, InitialStateAudioType } from './audio';
 
 export enum ActionAudioEnum {
     PICK = 'PICK',
@@ -11,5 +11,5 @@ export enum ActionAudioEnum {
 
 export type ActionAudioType = {
     type: ActionAudioEnum;
-    payload: AudioType;
+    payload: InitialStateAudioType;
 };

@@ -9,6 +9,9 @@ import Image from 'next/image';
 import Button from '../ui/Button';
 import Box from '../ui/Box';
 import Audio from './Audio';
+import { useDispatch, useSelector } from 'react-redux';
+import { AudioState, setLoadingState } from '@/redux/slices/audioSlice';
+import { RooteState } from '@/redux/store';
 
 const ButtonNext = ({ onClick }: { onClick: () => void }) => {
     return (
@@ -29,8 +32,11 @@ const ButtonPrev = ({ onClick }: { onClick: () => void }) => {
 
 const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
     const audioRef = useRef<Audio>(null);
-    const { audio, onClickNext, onClickPrev, onClickToggleLoop, onClickPause, onClickPlay } = useAudio();
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const { audio, isPlaying, isLoop, onClickNext, onClickPrev, onClickToggleLoop, onClickPause, onClickPlay } =
+        useAudio();
+    const { isLoading } = useSelector((state: any) => state.audio);
+    const dispatch = useDispatch();
+
     const handlePlay = useCallback(() => {
         audioRef.current?.play();
         onClickPlay();
@@ -42,13 +48,15 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
     }, []);
 
     const handleClick = () => {
-        audio.isPlaying ? handlePause() : handlePlay();
+        isPlaying ? handlePause() : handlePlay();
     };
 
     useEffect(() => {
         if (audioRef.current) {
-            audio.isPlaying && audioRef.current.play();
-            setIsLoading(false);
+            setTimeout(() => {
+                isPlaying && audioRef.current?.play();
+                dispatch(setLoadingState(false));
+            }, 400);
         }
     }, [audio, audioRef.current]);
 
@@ -67,7 +75,7 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                 <img
                     src={audio.image}
                     className={`rounded-full w-[150px] h-[150px] md:w-[200px] md:h-[200px] select-none ${
-                        audio.isPlaying && 'animate-spin-slow'
+                        isPlaying && 'animate-spin-slow'
                     }`}
                     alt={audio.name}
                     loading="lazy"
@@ -87,7 +95,7 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                 <div className="w-7/12 lg:w-6/12 flex flex-row justify-between items-center">
                     <ButtonPrev onClick={() => onClickPrev(audio)} />
                     <Button onClick={handleClick} classN="rounded-full p-2 bg-opacity-secondary">
-                        {audio.isPlaying ? (
+                        {isPlaying ? (
                             <FaPause className="text-xl md:text-base" />
                         ) : (
                             <BiSolidRightArrow className="text-xl md:text-base" />
@@ -95,10 +103,7 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                     </Button>
                     <ButtonNext onClick={() => onClickNext(audio)} />
                 </div>
-                <div
-                    className={`cursor-pointer ${audio.isLoop && 'text-opacity-secondary'}`}
-                    onClick={onClickToggleLoop}
-                >
+                <div className={`cursor-pointer ${isLoop && 'text-opacity-secondary'}`} onClick={onClickToggleLoop}>
                     <ImLoop className="text-xl md:text-lg" />
                 </div>
             </div>
