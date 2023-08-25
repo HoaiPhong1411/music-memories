@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { AudioType } from '@/types/audio';
 import { audios } from '@/data/audios';
 import _ from 'lodash';
+import { getvolumeLocalstorage } from '@/utils/localstorage';
 
 // Type for our state
 export interface AudioState {
@@ -10,7 +11,7 @@ export interface AudioState {
     volume?: number;
     isShowVolume?: boolean;
 }
-const volume = _.toNumber(JSON.parse(localStorage.getItem('volume') || '1'));
+const volume = _.toNumber(getvolumeLocalstorage);
 
 // Initial state
 const initialState: AudioState = {
