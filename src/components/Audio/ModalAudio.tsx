@@ -22,7 +22,6 @@ const ModalAudio = forwardRef(({ audios }: { audios: AudioType[] }, ref: React.F
         }, 300);
         modalElementList.current.classList.remove('animate-up-modal');
         modalElementList.current.classList.add('animate-down-modal');
-        // modalRef.current.classList.add('opacity-hidden');
     };
 
     const handleShow = () => {

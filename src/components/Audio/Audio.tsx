@@ -1,4 +1,5 @@
 import useAudio from '@/hooks/useAudio';
+import { AudioType } from '@/types/audio';
 import _ from 'lodash';
 import React, {
     ChangeEvent,
@@ -10,8 +11,13 @@ import React, {
     useRef,
     useState,
 } from 'react';
+import { useSelector } from 'react-redux';
 
-interface AudioProps {}
+interface AudioProps {
+    audio: AudioType;
+    isLoop?: boolean;
+    onClickNext: (audio: AudioType) => void;
+}
 
 type AudioTypeRef = {
     play: () => void;
@@ -22,9 +28,9 @@ const TextTime = ({ children }: { children: string }) => {
     return <div className="text-gray text-sm font-light w-2/12 text-center">{children}</div>;
 };
 
-const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRef>) => {
-    const { audio, isLoop, onClickPlay, onClickPause, onClickNext } = useAudio();
+const Audio = forwardRef(({ audio, isLoop, onClickNext }: AudioProps, ref: React.ForwardedRef<AudioTypeRef>) => {
     const [startTime, setStartTime] = useState<number>(0);
+    const { volume } = useSelector((state: any) => state.audio);
     const progressBarRef = useRef<any>(null);
     const audioRef = useRef<any>(null);
 
@@ -56,6 +62,10 @@ const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRe
         return duration ? `${Math.floor(duration / 60)}:${(duration % 60).toFixed().padStart(2, '0')}` : '0:00';
     };
 
+    useEffect(() => {
+        // audioRef.current.load();
+    }, [audio]);
+
     return (
         <div className="w-full flex flex-row gap-4 justify-center items-center">
             <TextTime>{formatTime(startTime)}</TextTime>
@@ -74,6 +84,7 @@ const Audio = forwardRef((props: AudioProps, ref: React.ForwardedRef<AudioTypeRe
                 <audio
                     src={audio.link}
                     ref={audioRef}
+                    // volume={volume}
                     controls
                     loop={isLoop}
                     hidden
