@@ -4,6 +4,7 @@ import _ from 'lodash';
 import React, {
     ChangeEvent,
     KeyboardEvent,
+    ReactNode,
     Ref,
     forwardRef,
     useEffect,
@@ -24,14 +25,21 @@ type AudioTypeRef = {
     pause: () => void;
 };
 
-const TextTime = ({ children }: { children: string }) => {
-    return <div className="text-gray text-sm font-light w-2/12 text-center">{children}</div>;
-};
+const TextTime = forwardRef(({ children }: { children: ReactNode }, ref?: React.ForwardedRef<{}>) => {
+    return (
+        <div ref={ref} className="text-gray text-sm font-light w-2/12 text-center">
+            {children}
+        </div>
+    );
+});
+
+TextTime.displayName = 'TextTime';
 
 const Audio = forwardRef(({ audio, isLoop, onClickNext }: AudioProps, ref: React.ForwardedRef<AudioTypeRef>) => {
     const [startTime, setStartTime] = useState<number>(0);
     const { volume } = useSelector((state: any) => state.audio);
     const progressBarRef = useRef<any>(null);
+    const timeStartRef = useRef<any>(null);
     const audioRef = useRef<any>(null);
 
     useImperativeHandle(ref, () => ({
@@ -54,7 +62,7 @@ const Audio = forwardRef(({ audio, isLoop, onClickNext }: AudioProps, ref: React
     const handleTimeUpdate = () => {
         const duration = audioRef.current?.duration;
         const percent = _.toNumber(((duration / 100) * audioRef.current.currentTime).toFixed(2));
-        setStartTime(percent);
+        timeStartRef.current.innerText = formatTime(percent);
         progressBarRef.current.value = audioRef.current.currentTime;
     };
 
@@ -62,13 +70,13 @@ const Audio = forwardRef(({ audio, isLoop, onClickNext }: AudioProps, ref: React
         return duration ? `${Math.floor(duration / 60)}:${(duration % 60).toFixed().padStart(2, '0')}` : '0:00';
     };
 
-    useEffect(() => {
-        // audioRef.current.load();
-    }, [audio]);
+    // useEffect(() => {
+    //     // audioRef.current.load();
+    // }, [audio]);
 
     return (
         <div className="w-full flex flex-row gap-4 justify-center items-center">
-            <TextTime>{formatTime(startTime)}</TextTime>
+            <TextTime ref={timeStartRef}>{formatTime(startTime)}</TextTime>
             <div className="w-8/12 h-2 bg-opacity-gray rounded-lg flex flex-row items-center">
                 <input
                     defaultValue={0}
