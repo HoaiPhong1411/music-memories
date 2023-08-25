@@ -26,10 +26,13 @@ type AudioTypeRef = {
 };
 
 const TextTime = forwardRef(({ children }: { children: ReactNode }, ref?: React.ForwardedRef<{}>) => {
+    const divRef = useRef<any>(null);
     return (
-        <div ref={ref} className="text-gray text-sm font-light w-2/12 text-center">
-            {children}
-        </div>
+        <>
+            <div ref={ref ?? divRef} className="text-gray text-sm font-light w-2/12 text-center">
+                {children}
+            </div>
+        </>
     );
 });
 
