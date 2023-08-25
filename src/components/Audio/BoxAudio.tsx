@@ -126,7 +126,9 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                 )}
             </div>
             <div className="w-full lg:w-2/3 flex flex-row justify-between items-center px-2 md:px-4 gap-4 ">
-                <div className="invisible"></div>
+                <div className="invisible">
+                    <ImLoop className="text-xl md:text-lg" />
+                </div>
                 {/* <VolumeElement /> */}
                 <div className="w-7/12 lg:w-6/12 flex flex-row justify-between items-center">
                     <ButtonPrev onClick={() => onClickPrev(audio)} />
