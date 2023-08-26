@@ -3,7 +3,7 @@ import useAudioReducer from '@/hooks/useAudioReducer';
 import { handlePickAudio } from '@/redux/slices/audioSlice';
 import { AudioType } from '@/types/audio';
 import { ActionAudioEnum } from '@/types/reducer';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const AudioItem = ({
@@ -15,16 +15,27 @@ const AudioItem = ({
     isSelected?: boolean;
     handleClickItem?: () => void;
 }) => {
+    const liRef = useRef<any>(null);
     const dispatch = useDispatch();
     const handleClickAudioItem = () => {
         dispatch(handlePickAudio(audio));
         handleClickItem?.();
     };
+    useEffect(() => {
+        if (liRef.current && isSelected) {
+            liRef.current?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+        }
+    }, [isSelected]);
+
     return (
         <li
+            ref={liRef}
             onClick={handleClickAudioItem}
             className={`flex flex-row items-center w-full gap-2 cursor-pointer rounded-md p-2 active:bg-active-primary hover:bg-hover-primary transition-all border-b border-opacity-primary ${
-                isSelected && 'bg-active-primary'
+                isSelected ? 'bg-active-primary' : ''
             }`}
         >
             <img src={audio.image} alt="" className="w-8 h-8 rounded-full " />

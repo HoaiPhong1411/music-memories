@@ -15,11 +15,15 @@ import {
     handleLoopAudio,
     handleNextAudio,
     handlePauseAudio,
+    handlePickAudio,
     handlePlayAudio,
     handlePrevAudio,
     handleShowVolumeAudio,
     handleVolumeAudio,
 } from '@/redux/slices/audioSlice';
+import { useLocalStorage } from 'react-use';
+import { localStorageEnum } from '@/types/localStorage';
+import { audios } from '@/data/audios';
 
 const ButtonNext = ({ onClick }: { onClick: () => void }) => {
     return (
@@ -41,7 +45,7 @@ const ButtonPrev = ({ onClick }: { onClick: () => void }) => {
 const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
     const audioRef = useRef<CustomAudio>(null);
     const { isLoading, volume, isShowVolume, isPlaying, audio, isLoop } = useSelector((state: any) => state.audio);
-
+    // const [song, setSong] = useLocalStorage(localStorageEnum.AUDIO, audios[0]);
     const dispatch = useDispatch();
 
     // handle when click next song
@@ -126,6 +130,16 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
             </div>
         );
     };
+
+    // useEffect(() => {
+    //     dispatch(handlePickAudio(song));
+    // }, []);
+
+    // useEffect(() => {
+    //     console.log('run');
+    //     setSong(audio);
+    // }, audio);
+
     return (
         <Box classN="w-full md:w-3/4 p-4 flex flex-col items-center justify-center gap-6">
             <div className="w-full flex flex-row justify-between items-center">
@@ -147,7 +161,7 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                 <img
                     src={audio.image}
                     className={`rounded-full w-[150px] h-[150px] md:w-[200px] md:h-[200px] select-none ${
-                        isPlaying && 'animate-spin-slow'
+                        isPlaying ? 'animate-spin-slow' : ''
                     }`}
                     alt={audio.name}
                     loading="lazy"
@@ -192,7 +206,7 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                 </div>
 
                 {/* loop element */}
-                <div className={`cursor-pointer ${isLoop && 'text-active-primary'}`} onClick={onClickToogleLoop}>
+                <div className={`cursor-pointer ${isLoop ? 'text-active-primary' : ''}`} onClick={onClickToogleLoop}>
                     <ImLoop className="text-xl md:text-lg" />
                 </div>
             </div>

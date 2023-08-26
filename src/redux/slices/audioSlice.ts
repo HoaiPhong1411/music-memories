@@ -15,11 +15,12 @@ export interface AudioState {
     isLoop?: boolean;
 }
 const volume = _.toNumber(getvolumeLocalstorage);
+const audio = audios[0];
 
 // Initial state
 const initialState: AudioState = {
     audios: audios,
-    audio: audios[0],
+    audio,
     isLoading: true,
     volume,
     isShowVolume: false,
@@ -46,15 +47,6 @@ export const audioSlice = createSlice({
             state.isLoading = true;
             state.isPlaying = true;
         },
-        handlePlayAudio(state, action: { payload?: any; type: string }) {
-            state.isPlaying = true;
-        },
-        handlePauseAudio(state, action: { payload?: any; type: string }) {
-            state.isPlaying = false;
-        },
-        handleLoopAudio(state, action: { payload?: any; type: string }) {
-            state.isLoop = !state.isLoop;
-        },
         handleNextAudio(state, action: { payload?: any; type: string }) {
             const currentIndex = audios.findIndex((audio) => audio.id === state.audio.id);
             state.audio = audios[(currentIndex + 1) % audios.length];
@@ -66,6 +58,15 @@ export const audioSlice = createSlice({
             state.audio = audios[(currentIndex - 1) % audios.length];
             state.isLoading = true;
             state.isPlaying = true;
+        },
+        handlePlayAudio(state, action: { payload?: any; type: string }) {
+            state.isPlaying = true;
+        },
+        handlePauseAudio(state, action: { payload?: any; type: string }) {
+            state.isPlaying = false;
+        },
+        handleLoopAudio(state, action: { payload?: any; type: string }) {
+            state.isLoop = !state.isLoop;
         },
     },
 });
