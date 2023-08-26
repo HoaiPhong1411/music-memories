@@ -40,7 +40,7 @@ const ModalAudio = forwardRef(({ audios }: { audios: AudioType[] }, ref: React.F
         <div
             onClick={handleClickOutSide}
             ref={modalRef}
-            className="fixed top-0 left-0 z-10 overflow-hidden w-full h-full bg-opacity-primary flex items-end hidden transition-all"
+            className="fixed top-0 left-0 z-10 overflow-hidden w-full h-full bg-opacity-black flex items-end hidden transition-all"
         >
             <div
                 ref={modalElementList}

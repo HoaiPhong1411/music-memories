@@ -3,9 +3,10 @@ import React from 'react';
 import AudioItem from './AudioItem';
 import _ from 'lodash';
 import useAudio from '@/hooks/useAudio';
+import { useSelector } from 'react-redux';
 
 const ListAudio = ({ audios, handleClickItem }: { audios: AudioType[]; handleClickItem?: () => void }) => {
-    const { audio } = useAudio();
+    const { audio } = useSelector((state: any) => state.audio);
 
     return (
         <>

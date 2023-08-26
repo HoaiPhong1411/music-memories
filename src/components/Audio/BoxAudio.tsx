@@ -8,9 +8,18 @@ import _ from 'lodash';
 import Image from 'next/image';
 import Button from '../ui/Button';
 import Box from '../ui/Box';
-import Audio from './Audio';
+import CustomAudio from './CustomAudio';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoadingState, setShowVolume, setVolumeState } from '@/redux/slices/audioSlice';
+import {
+    handleLoadingAudio,
+    handleLoopAudio,
+    handleNextAudio,
+    handlePauseAudio,
+    handlePlayAudio,
+    handlePrevAudio,
+    handleShowVolumeAudio,
+    handleVolumeAudio,
+} from '@/redux/slices/audioSlice';
 
 const ButtonNext = ({ onClick }: { onClick: () => void }) => {
     return (
@@ -30,41 +39,61 @@ const ButtonPrev = ({ onClick }: { onClick: () => void }) => {
 };
 
 const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
-    const audioRef = useRef<Audio>(null);
-    const { audio, isPlaying, isLoop, onClickNext, onClickPrev, onClickToggleLoop, onClickPause, onClickPlay } =
-        useAudio();
-    const { isLoading, volume, isShowVolume } = useSelector((state: any) => state.audio);
+    const audioRef = useRef<CustomAudio>(null);
+    const { isLoading, volume, isShowVolume, isPlaying, audio, isLoop } = useSelector((state: any) => state.audio);
 
     const dispatch = useDispatch();
 
-    const handlePlay = useCallback(() => {
+    // handle when click next song
+    const onClickNextAudio = () => {
+        dispatch(handleNextAudio());
         audioRef.current?.play();
-        onClickPlay();
-    }, [onClickPlay]);
-
-    const handlePause = useCallback(() => {
-        audioRef.current?.pause();
-        onClickPause();
-    }, [onClickPause]);
-
-    const handleClick = () => {
-        isPlaying ? handlePause() : handlePlay();
     };
 
+    // handle when click previus song
+    const onClickPrevAudio = () => {
+        dispatch(handlePrevAudio());
+        audioRef.current?.play();
+    };
+
+    // handle when click play song
+    const onClickPlayAudio = () => {
+        audioRef.current?.play();
+        dispatch(handlePlayAudio());
+    };
+
+    // handle when click pause song
+    const onClickPauseAudio = () => {
+        audioRef.current?.pause();
+        dispatch(handlePauseAudio());
+    };
+
+    const onClickToogleLoop = () => {
+        dispatch(handleLoopAudio());
+    };
+
+    // click pause or play song
+    const handleClick = () => {
+        isPlaying ? onClickPauseAudio() : onClickPlayAudio();
+    };
+
+    // loading when song change
     useEffect(() => {
         if (audioRef.current) {
             setTimeout(() => {
                 isPlaying && audioRef.current?.play();
-                dispatch(setLoadingState(false));
+                dispatch(handleLoadingAudio(false));
             }, 400);
         }
     }, [audio, dispatch, isPlaying]);
 
+    // increase and decrease volume
     const handleVolumeChange = (event: any) => {
         const newVolume = parseFloat(event.target.value);
-        dispatch(setVolumeState(newVolume));
+        dispatch(handleVolumeAudio(newVolume));
     };
 
+    // Volume element
     const VolumeElement = ({ props }: any) => {
         let Element: ReactNode = <ImVolumeHigh {...props} />;
         if (volume >= 0.8) {
@@ -77,7 +106,7 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
             Element = <ImVolumeMute2 {...props} />;
         }
         const handleClickVolume = () => {
-            dispatch(setShowVolume(!isShowVolume));
+            dispatch(handleShowVolumeAudio(!isShowVolume));
         };
 
         return (
@@ -86,7 +115,7 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                 <input
                     className={`absolute ${
                         isShowVolume ? 'block' : 'hidden'
-                    } top-0 left-0 translate-x-4 accent-opacity-secondary transition-all`}
+                    } top-0 left-0 translate-x-4 accent-opacity-primary transition-all`}
                     type="range"
                     min="0"
                     max="1"
@@ -100,15 +129,21 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
     return (
         <Box classN="w-full md:w-3/4 p-4 flex flex-col items-center justify-center gap-6">
             <div className="w-full flex flex-row justify-between items-center">
+                {/* menu element */}
                 <div onClick={clickShowMenu} className="hover:text-opacity-white md:invisible">
                     <TfiMenu className="text-xl" />
                 </div>
+
+                {/* name song */}
                 <h3 className="text-lg font-light text-white select-none">{audio.name}</h3>
+
+                {/* header right */}
                 <div className="invisible">
                     <TfiMenu className="text-xl" />
                 </div>
             </div>
             <div className="relative">
+                {/* image element */}
                 <img
                     src={audio.image}
                     className={`rounded-full w-[150px] h-[150px] md:w-[200px] md:h-[200px] select-none ${
@@ -117,35 +152,53 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                     alt={audio.name}
                     loading="lazy"
                 />
+
+                {/* loading element */}
                 {isLoading && (
                     <div className="absolute top-0 left-0">
                         <div
-                            className={`w-[150px] h-[150px] md:w-[200px] md:h-[200px] border-4 border-opacity-secondary border-l-opacity-gray rounded-full animate-spin `}
+                            className={`w-[150px] h-[150px] md:w-[200px] md:h-[200px] border-4 border-opacity-primary border-l-opacity-gray rounded-full animate-spin `}
                         ></div>
                     </div>
                 )}
             </div>
             <div className="w-full lg:w-2/3 flex flex-row justify-between items-center px-2 md:px-4 gap-4 ">
+                {/* <VolumeElement /> */}
                 <div className="invisible">
                     <ImLoop className="text-xl md:text-lg" />
                 </div>
-                {/* <VolumeElement /> */}
+
+                {/* next pause prev element */}
                 <div className="w-7/12 lg:w-6/12 flex flex-row justify-between items-center">
-                    <ButtonPrev onClick={() => onClickPrev(audio)} />
-                    <Button onClick={handleClick} classN="rounded-full p-2 bg-opacity-secondary">
+                    <ButtonPrev
+                        onClick={() => {
+                            // onClickPrev(audio);
+                            onClickPrevAudio();
+                        }}
+                    />
+                    <Button onClick={handleClick} classN="rounded-full p-2 bg-opacity-primary">
                         {isPlaying ? (
                             <FaPause className="text-xl md:text-base" />
                         ) : (
                             <BiSolidRightArrow className="text-xl md:text-base" />
                         )}
                     </Button>
-                    <ButtonNext onClick={() => onClickNext(audio)} />
+                    <ButtonNext
+                        onClick={() => {
+                            // onClickNext(audio);
+                            onClickNextAudio();
+                        }}
+                    />
                 </div>
-                <div className={`cursor-pointer ${isLoop && 'text-opacity-secondary'}`} onClick={onClickToggleLoop}>
+
+                {/* loop element */}
+                <div className={`cursor-pointer ${isLoop && 'text-active-primary'}`} onClick={onClickToogleLoop}>
                     <ImLoop className="text-xl md:text-lg" />
                 </div>
             </div>
-            <Audio ref={audioRef} audio={audio} isLoop={isLoop} onClickNext={onClickNext} />
+
+            {/* Audio source */}
+            <CustomAudio ref={audioRef} audio={audio} isLoop={isLoop} onClickNext={onClickNextAudio} />
         </Box>
     );
 };

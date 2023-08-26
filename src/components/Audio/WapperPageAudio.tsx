@@ -3,10 +3,11 @@ import Box from '../ui/Box';
 import BoxListAudio from './BoxListAudio';
 import BoxAudio from './BoxAudio';
 import ModalAudio from './ModalAudio';
-import { audios } from '@/data/audios';
+import { useSelector } from 'react-redux';
 
 const WapperPageAudio = () => {
     const modalRef = useRef<any>(null);
+    const { audios } = useSelector((state: any) => state.audio);
     return (
         <div className="w-full flex justify-center items-center ">
             {/* <div className="bg-home-mobile md:bg-home w-full h-screen flex justify-center items-center bg-cover overflow-hidden"> */}

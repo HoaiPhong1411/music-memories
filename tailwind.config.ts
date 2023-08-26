@@ -9,11 +9,12 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                'opacity-primary': 'rgb(66 66 66 / 50%)',
+                'opacity-black': 'rgb(66 66 66 / 50%)',
                 'opacity-white': 'rgb(255 255 255 / 60%)',
-                'opacity-secondary': 'rgb(97 148 119 / 60%)',
+                'opacity-primary': 'rgb(97 148 119 / 60%)',
                 'opacity-gray': 'rgb(115 115 115 / 64%)',
-                'hover-secondary': 'rgb(97 148 119 / 75%)',
+                'hover-primary': 'rgb(97 148 119 / 40%)',
+                'active-primary': 'rgb(97 148 119 / 60%)',
                 gray: 'rgb(215 215 215)',
                 primary: 'rgb(255 215 189)',
             },

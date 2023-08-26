@@ -1,6 +1,6 @@
 import { audios } from '@/data/audios';
 import useAudioReducer from '@/hooks/useAudioReducer';
-import { setLoadingState } from '@/redux/slices/audioSlice';
+import { handleLoadingAudio } from '@/redux/slices/audioSlice';
 import audioReducer, { initialStateAudio } from '@/store/audioReducer';
 import { AudioContextType, AudioType } from '@/types/audio';
 import { ActionAudioEnum } from '@/types/reducer';
@@ -14,17 +14,17 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     const dispatchRedux = useDispatch();
 
     const onPickAudio = (audio: AudioType) => {
-        dispatchRedux(setLoadingState(true));
+        dispatchRedux(handleLoadingAudio(true));
         dispatch({ type: ActionAudioEnum.PICK, payload: { audio } });
     };
 
     const onClickNext = (audio: AudioType) => {
-        dispatchRedux(setLoadingState(true));
+        dispatchRedux(handleLoadingAudio(true));
         dispatch({ type: ActionAudioEnum.NEXT, payload: { audio } });
     };
 
     const onClickPrev = (audio: AudioType) => {
-        dispatchRedux(setLoadingState(true));
+        dispatchRedux(handleLoadingAudio(true));
         dispatch({ type: ActionAudioEnum.PREV, payload: { audio } });
     };
 
