@@ -42,6 +42,7 @@ const CustomAudio = forwardRef(
     ({ audio, isLoop, onClickNext }: CustomAudioProps, ref: React.ForwardedRef<CustomAudioTypeRef>) => {
         const [startTime, setStartTime] = useState<number>(0);
         const { volume } = useSelector((state: any) => state.audio);
+        const [isChanging, setIsChanging] = useState<boolean>(false);
         const progressBarRef = useRef<any>(null);
         const timeStartRef = useRef<any>(null);
         const audioRef = useRef<any>(null);
@@ -57,17 +58,25 @@ const CustomAudio = forwardRef(
 
         const handleChangeProgressBar = (e: ChangeEvent<HTMLInputElement>) => {
             const percent = (audioRef.current.duration / 100) * _.toNumber(e.target.value);
-            if (audioRef.current) {
-                audioRef.current.currentTime = percent;
-                progressBarRef.current.value = percent;
-            }
+            e.target.addEventListener('mousedown', (event) => {
+                setIsChanging(true);
+            });
+            e.target.addEventListener('mouseup', (event) => {
+                if (audioRef.current) {
+                    audioRef.current.currentTime = percent;
+                    progressBarRef.current.value = percent;
+                }
+                setIsChanging(false);
+            });
         };
 
         const handleTimeUpdate = () => {
             const duration = audioRef.current?.duration;
             const percent = _.toNumber(((duration / 100) * audioRef.current.currentTime).toFixed(2));
             timeStartRef.current.innerText = formatTime(percent);
-            progressBarRef.current.value = audioRef.current.currentTime;
+            if (!isChanging) {
+                progressBarRef.current.value = audioRef.current.currentTime;
+            }
         };
 
         const formatTime = (duration: number) => {
