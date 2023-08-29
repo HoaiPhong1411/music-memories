@@ -1,10 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
-import RootReducer from './RootReducer';
-// import { authSlice } from "./authSlice";
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import rootReducer from './rootReducer';
+import { persistStore, persistReducer } from 'redux-persist';
 
 export const store = configureStore({
-    reducer: RootReducer,
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false, immutableCheck: false }),
 });
+export const persistor = persistStore(store);
+
 // export type AppState = ReturnType<AppStore['getState']>;
 // export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppState, unknown, Action>;
 

@@ -3,6 +3,7 @@ import { AudioType } from '@/types/audio';
 import { audios } from '@/data/audios';
 import _ from 'lodash';
 import { getvolumeLocalstorage } from '@/utils/localstorage';
+import storage from 'redux-persist/lib/storage';
 
 // Type for our state
 export interface AudioState {
@@ -17,6 +18,11 @@ export interface AudioState {
 const volume = _.toNumber(getvolumeLocalstorage);
 const audio = audios[0];
 
+const getDataLocalStorage: any = async () => {
+    const dataAudio = await storage.getItem('persist:audio').then((res: any) => JSON.parse(res));
+    return JSON.parse(dataAudio.audio);
+};
+
 // Initial state
 const initialState: AudioState = {
     audios: audios,
@@ -26,6 +32,8 @@ const initialState: AudioState = {
     isShowVolume: false,
     isPlaying: false,
 };
+
+initialState.audio = getDataLocalStorage();
 
 // Actual Slice
 export const audioSlice = createSlice({
