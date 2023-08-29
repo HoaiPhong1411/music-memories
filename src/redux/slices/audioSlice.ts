@@ -18,11 +18,11 @@ export interface AudioState {
 const volume = _.toNumber(getvolumeLocalstorage);
 const audio = audios[0];
 
-const getDataLocalStorage: any = async () => {
-    const dataAudio = await storage.getItem('persist:audio').then((res: any) => JSON.parse(res));
-    return JSON.parse(dataAudio.audio);
-};
-
+// const getDataLocalStorage: any = async () => {
+//     const dataAudio = await storage.getItem('persist:audio').then((res: any) => res);
+//     return dataAudio.audio;
+// };
+// console.log(getDataLocalStorage());
 // Initial state
 const initialState: AudioState = {
     audios: audios,
@@ -33,10 +33,10 @@ const initialState: AudioState = {
     isPlaying: false,
 };
 
-initialState.audio = getDataLocalStorage();
+// initialState.audio = getDataLocalStorage();
 
 // Actual Slice
-export const audioSlice = createSlice({
+export const audioSlice: any = createSlice({
     name: 'audio',
     initialState,
     reducers: {
