@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="en">
             <body
-                className={`${inter.className} h-screen bg-bottom bg-home bg-cover overflow-hidden flex justify-center items-center`}
+                className={`${inter.className} h-screen bg-top md:bg-bottom bg-home bg-cover overflow-hidden flex justify-center items-center`}
             >
                 <ReduxProvider> {children}</ReduxProvider>
             </body>
