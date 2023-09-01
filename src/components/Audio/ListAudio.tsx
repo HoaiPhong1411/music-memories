@@ -10,8 +10,8 @@ const ListAudio = ({ audios, handleClickItem }: { audios: AudioType[]; handleCli
 
     return (
         <>
-            <h4 className="text-white">Danh sách bài hát</h4>
-            <ul className="w-full flex flex-col max-h-[350px] overflow-y-auto gap-2">
+            <h4 className="text-white select-none md:mt-4">Danh sách bài hát</h4>
+            <ul className="w-full flex flex-col max-h-[350px] md:max-h-[575px] overflow-y-auto gap-2">
                 {_.map(audios, (audioItem: AudioType) => (
                     <AudioItem
                         key={audioItem.id}

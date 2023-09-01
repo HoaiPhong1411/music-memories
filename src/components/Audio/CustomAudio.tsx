@@ -31,7 +31,7 @@ const TextTime = forwardRef(({ children }: { children: ReactNode }, ref?: React.
     const divRef = useRef<any>(null);
     return (
         <>
-            <div ref={ref ?? divRef} className="text-gray text-sm font-light w-2/12 text-center">
+            <div ref={ref ?? divRef} className="text-sm font-light w-2/12 text-center">
                 {children}
             </div>
         </>
@@ -86,9 +86,9 @@ const CustomAudio = forwardRef(
         };
 
         return (
-            <div className="w-full flex flex-row gap-4 justify-center items-center">
+            <div className="w-full flex flex-row gap-4 justify-center items-center select-none">
                 <TextTime ref={timeStartRef}>{formatTime(startTime)}</TextTime>
-                <div className="w-8/12 h-2 bg-opacity-gray rounded-lg flex flex-row items-center">
+                <div className="w-8/12 h-2 bg-primary-light rounded-lg flex flex-row items-center">
                     <input
                         defaultValue={0}
                         min={0}
@@ -98,7 +98,7 @@ const CustomAudio = forwardRef(
                         type="range"
                         name="progress-bar"
                         id="progressBar"
-                        className="w-full accent-opacity-primary transition-all"
+                        className="w-full accent-primary-main transition-all"
                     />
                     <audio
                         src={audio.link}

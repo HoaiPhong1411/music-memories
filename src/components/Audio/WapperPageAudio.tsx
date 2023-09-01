@@ -9,9 +9,9 @@ const WapperPageAudio = () => {
     const modalRef = useRef<any>(null);
     const { audios, isLoading } = useSelector((state: any) => state.audio);
     return (
-        <div className="w-full flex justify-center items-center ">
-            <Box classN="w-full md:w-3/4 p-4 md:p-6 flex flex-col-reverse md:flex-row gap-4 md:gap-6 mx-4">
-                <BoxListAudio audios={audios} />
+        <div className="w-full h-full flex justify-center items-end ">
+            <Box classN="w-full md:w-3/4 pb-6 md:p-6 flex flex-col-reverse md:flex-row justify-center gap-4 md:gap-6">
+                {/* <BoxListAudio audios={audios} /> */}
                 <BoxAudio clickShowMenu={() => modalRef.current?.show()} />
             </Box>
             <ModalAudio audios={audios} ref={modalRef} />

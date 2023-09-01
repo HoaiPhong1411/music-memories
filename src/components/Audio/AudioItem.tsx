@@ -34,11 +34,11 @@ const AudioItem = ({
         <li
             ref={liRef}
             onClick={handleClickAudioItem}
-            className={`flex flex-row items-center w-full gap-2 cursor-pointer rounded-md p-2 active:bg-active-primary hover:bg-hover-primary transition-all border-b border-opacity-primary ${
-                isSelected ? 'bg-active-primary' : ''
+            className={`flex select-none flex-row items-center w-full gap-2 hover:text-primary-light cursor-pointer rounded-md p-3 md:p-2 hover:bg-primary-dark transition-all ${
+                isSelected ? 'bg-primary-dark text-primary-light' : ''
             }`}
         >
-            <img src={audio.image} alt="" className="w-8 h-8 rounded-full " />
+            <img src={audio.image} alt="" className="w-8 h-8 rounded-full" />
             <span className="text-sm font-light md:w-[80%] truncate">{audio.name}</span>
         </li>
     );

@@ -141,12 +141,16 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
     // }, audio);
 
     return (
-        <Box classN="w-full md:w-3/4 p-4 flex flex-col items-center justify-center gap-6">
-            <div className="w-full flex flex-row justify-between items-center">
-                {/* menu element */}
-                <div onClick={clickShowMenu} className="hover:text-opacity-white md:invisible">
+        <Box classN="w-full md:w-3/5 p-4 flex flex-col items-center justify-center gap-6">
+            <div className="w-full flex flex-row justify-center items-center">
+                {/* hidden element */}
+                {/* <div className="invisible p-2">
+                    <ImLoop className="text-xl md:text-lg" />
+                </div> */}
+
+                {/* <div onClick={clickShowMenu} className="hover:text-primary-light cursor-pointer">
                     <TfiMenu className="text-xl" />
-                </div>
+                </div> */}
 
                 {/* name song */}
                 <h3 className="text-lg font-light text-white select-none">{audio.name}</h3>
@@ -160,10 +164,10 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                 {/* image element */}
                 <img
                     src={audio.image}
-                    className={`rounded-full w-[150px] h-[150px] md:w-[200px] md:h-[200px] select-none ${
+                    className={`rounded-full border-2 border-primary-light w-[150px] h-[150px] md:w-[200px] md:h-[200px] select-none ${
                         isPlaying ? 'animate-spin-slow' : ''
                     }`}
-                    alt={audio.name}
+                    alt={audio?.name}
                     loading="lazy"
                 />
 
@@ -171,15 +175,15 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                 {isLoading && (
                     <div className="absolute top-0 left-0">
                         <div
-                            className={`w-[150px] h-[150px] md:w-[200px] md:h-[200px] border-4 border-opacity-primary border-l-opacity-gray rounded-full animate-spin `}
+                            className={`w-[150px] h-[150px] md:w-[200px] md:h-[200px] border-4 border-primary-light border-l-opacity-gray rounded-full animate-spin `}
                         ></div>
                     </div>
                 )}
             </div>
             <div className="w-full lg:w-2/3 flex flex-row justify-between items-center px-2 md:px-4 gap-4 ">
-                {/* <VolumeElement /> */}
-                <div className="invisible">
-                    <ImLoop className="text-xl md:text-lg" />
+                {/* menu element */}
+                <div onClick={clickShowMenu} className="hover:text-primary-main p-2 cursor-pointer select-none">
+                    <TfiMenu className="text-xl" />
                 </div>
 
                 {/* next pause prev element */}
@@ -190,7 +194,7 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                             onClickPrevAudio();
                         }}
                     />
-                    <Button onClick={handleClick} classN="rounded-full p-2 bg-opacity-primary">
+                    <Button onClick={handleClick} classN="rounded-full p-2 bg-primary-main">
                         {isPlaying ? (
                             <FaPause className="text-xl md:text-base" />
                         ) : (
@@ -206,9 +210,11 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                 </div>
 
                 {/* loop element */}
-                <div className={`cursor-pointer ${isLoop ? 'text-active-primary' : ''}`} onClick={onClickToogleLoop}>
+                <Button onClick={onClickToogleLoop} classN={`rounded-full p-2 ${isLoop ? 'text-primary-main ' : ''} `}>
+                    {/* <div className={`cursor-pointer ${isLoop ? 'text-primary-main' : ''}`} onClick={onClickToogleLoop}> */}
                     <ImLoop className="text-xl md:text-lg" />
-                </div>
+                </Button>
+                {/* </div> */}
             </div>
 
             {/* Audio source */}

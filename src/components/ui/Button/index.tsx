@@ -10,7 +10,10 @@ const Button = ({
     classN?: string;
 }) => {
     return (
-        <div className={`flex flex-rơw cursor-pointer hover:text-opacity-white ${classN}`} onClick={onClick}>
+        <div
+            className={`flex flex-rơw cursor-pointer hover:text-primary-main transition-colors ${classN}`}
+            onClick={onClick}
+        >
             {children}
         </div>
     );

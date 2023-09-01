@@ -7,7 +7,7 @@ const Box = ({
     children?: ReactElement | ReactNode;
     classN?: HTMLProps<HTMLElement>['className'];
 }) => {
-    return <div className={`bg-opacity-black rounded-md shadow-md p-2 md:p-6 ${classN}`}>{children}</div>;
+    return <div className={`rounded-md md:p-6 ${classN}`}>{children}</div>;
 };
 
 export default Box;
