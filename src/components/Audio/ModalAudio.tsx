@@ -40,13 +40,9 @@ const ModalAudio = forwardRef(({ audios }: { audios: AudioType[] }, ref: React.F
         const isMobile = window.matchMedia('(max-width: 767px)').matches;
         modalRef.current.classList.remove('hidden');
         if (isMobile) {
-            console.log('run mobile', isMobile);
-
             modalElementList.current.classList.add('animate-up-modal');
             modalElementList.current.classList.remove('animate-down-modal');
         } else {
-            console.log('run desktop', isMobile);
-
             modalElementList.current.classList.add('animate-left-modal');
             modalElementList.current.classList.remove('animate-right-modal');
         }

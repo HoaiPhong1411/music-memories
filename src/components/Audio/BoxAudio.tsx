@@ -194,7 +194,7 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                             onClickPrevAudio();
                         }}
                     />
-                    <Button onClick={handleClick} classN="rounded-full p-2 bg-primary-main">
+                    <Button onClick={handleClick} classN="rounded-full p-2 bg-primary-main hover:text-white">
                         {isPlaying ? (
                             <FaPause className="text-xl md:text-base" />
                         ) : (
