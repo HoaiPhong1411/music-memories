@@ -15,7 +15,8 @@ export interface AudioState {
     isPlaying?: boolean;
     isLoop?: boolean;
 }
-const volume = _.toNumber(getvolumeLocalstorage);
+const volume = _.toNumber(getvolumeLocalstorage());
+
 const audio = audios[0];
 
 // const getDataLocalStorage: any = async () => {
@@ -24,11 +25,12 @@ const audio = audios[0];
 // };
 // console.log(getDataLocalStorage());
 // Initial state
+
 const initialState: AudioState = {
     audios: audios,
     audio,
     isLoading: true,
-    volume,
+    volume: volume || 1,
     isShowVolume: false,
     isPlaying: false,
 };

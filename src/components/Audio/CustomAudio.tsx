@@ -85,6 +85,12 @@ const CustomAudio = forwardRef(
             return duration ? `${Math.floor(duration / 60)}:${(duration % 60).toFixed().padStart(2, '0')}` : '0:00';
         };
 
+        useEffect(() => {
+            if (audioRef.current) {
+                audioRef.current.volume = volume;
+            }
+        }, [volume]);
+
         return (
             <div className="w-full flex flex-row gap-4 justify-center items-center select-none">
                 <TextTime ref={timeStartRef}>{formatTime(startTime)}</TextTime>
@@ -103,7 +109,6 @@ const CustomAudio = forwardRef(
                     <audio
                         src={audio.link}
                         ref={audioRef}
-                        // volume={volume}
                         controls
                         loop={isLoop}
                         hidden

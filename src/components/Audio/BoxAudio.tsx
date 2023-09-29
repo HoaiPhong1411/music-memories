@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect, useRef } from 'react';
+import React, { ChangeEvent, ChangeEventHandler, MouseEvent, ReactNode, useCallback, useEffect, useRef } from 'react';
 import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
 import { TfiMenu } from 'react-icons/tfi';
 import { ImLoop, ImVolumeHigh, ImVolumeMedium, ImVolumeLow, ImVolumeMute, ImVolumeMute2 } from 'react-icons/im';
@@ -27,6 +27,7 @@ import { audios } from '@/data/audios';
 import TitleAudio from './TitleAudio';
 import ImageAudio from './ImageAudio';
 import ActionAudio from './ActionAudio';
+import VolumeAudio from './VolumeAudio';
 
 const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
     const audioRef = useRef<CustomAudio>(null);
@@ -78,44 +79,12 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
     }, [audio, dispatch, isPlaying]);
 
     // increase and decrease volume
-    const handleVolumeChange = (event: any) => {
+    const handleVolumeChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newVolume = parseFloat(event.target.value);
         dispatch(handleVolumeAudio(newVolume));
     };
 
     // Volume element
-    const VolumeElement = ({ props }: any) => {
-        let Element: ReactNode = <ImVolumeHigh {...props} />;
-        if (volume >= 0.8) {
-            Element = <ImVolumeMedium {...props} />;
-        } else if (volume >= 0.5) {
-            Element = <ImVolumeLow {...props} />;
-        } else if (volume > 0) {
-            Element = <ImVolumeMute {...props} />;
-        } else {
-            Element = <ImVolumeMute2 {...props} />;
-        }
-        const handleClickVolume = () => {
-            dispatch(handleShowVolumeAudio(!isShowVolume));
-        };
-
-        return (
-            <div className="relative hover:text-opacity-white w-4 h-4 cursor-pointer">
-                <div onClick={handleClickVolume}>{Element}</div>
-                <input
-                    className={`absolute ${
-                        isShowVolume ? 'block' : 'hidden'
-                    } top-0 left-0 translate-x-4 accent-opacity-primary transition-all`}
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    value={volume}
-                    onChange={handleVolumeChange}
-                />
-            </div>
-        );
-    };
 
     // useEffect(() => {
     //     dispatch(handlePickAudio(song));
@@ -128,11 +97,11 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
 
     return (
         <Box classN="w-full md:w-3/5 p-4 flex flex-col items-center justify-center gap-6">
-            <div className="w-full flex flex-row justify-center items-center">
+            <div className="w-full flex flex-row justify-between items-center">
                 {/* hidden element */}
-                {/* <div className="invisible p-2">
+                <div className="invisible p-2">
                     <ImLoop className="text-xl md:text-lg" />
-                </div> */}
+                </div>
 
                 {/* <div onClick={clickShowMenu} className="hover:text-primary-light cursor-pointer">
                     <TfiMenu className="text-xl" />
@@ -145,8 +114,10 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                 {/* <h3 className="text-lg font-light text-white select-none">{audio.name}</h3> */}
 
                 {/* header right */}
-                <div className="invisible">
-                    <TfiMenu className="text-xl" />
+                <div>
+                    <VolumeAudio handleVolumeChange={handleVolumeChange} isShowVolume={isShowVolume} volume={volume} />
+
+                    {/* <TfiMenu className="text-xl" /> */}
                 </div>
             </div>
 
