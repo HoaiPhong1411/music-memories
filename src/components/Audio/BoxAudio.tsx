@@ -24,23 +24,9 @@ import {
 import { useLocalStorage } from 'react-use';
 import { localStorageEnum } from '@/types/localStorage';
 import { audios } from '@/data/audios';
-
-const ButtonNext = ({ onClick }: { onClick: () => void }) => {
-    return (
-        <Button onClick={onClick}>
-            <BiSolidRightArrow className="-mr-2 text-xl md:text-base" />
-            <BiSolidRightArrow className="text-xl md:text-base" />
-        </Button>
-    );
-};
-const ButtonPrev = ({ onClick }: { onClick: () => void }) => {
-    return (
-        <Button onClick={onClick}>
-            <BiSolidLeftArrow className="text-xl md:text-base" />
-            <BiSolidLeftArrow className="-ml-2 text-xl md:text-base" />
-        </Button>
-    );
-};
+import TitleAudio from './TitleAudio';
+import ImageAudio from './ImageAudio';
+import ActionAudio from './ActionAudio';
 
 const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
     const audioRef = useRef<CustomAudio>(null);
@@ -77,7 +63,7 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
     };
 
     // click pause or play song
-    const handleClick = () => {
+    const handleTogglePlay = () => {
         isPlaying ? onClickPauseAudio() : onClickPlayAudio();
     };
 
@@ -153,70 +139,30 @@ const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {
                 </div> */}
 
                 {/* name song */}
-                <h3 className="text-lg font-light text-white select-none">{audio.name}</h3>
+
+                <TitleAudio audio={audio} />
+
+                {/* <h3 className="text-lg font-light text-white select-none">{audio.name}</h3> */}
 
                 {/* header right */}
                 <div className="invisible">
                     <TfiMenu className="text-xl" />
                 </div>
             </div>
-            <div className="relative">
-                {/* image element */}
-                <img
-                    src={audio.image}
-                    className={`rounded-full border-2 border-primary-light w-[150px] h-[150px] md:w-[200px] md:h-[200px] select-none ${
-                        isPlaying ? 'animate-spin-slow' : ''
-                    }`}
-                    alt={audio?.name}
-                    loading="lazy"
-                />
 
-                {/* loading element */}
-                {isLoading && (
-                    <div className="absolute top-0 left-0">
-                        <div
-                            className={`w-[150px] h-[150px] md:w-[200px] md:h-[200px] border-4 border-primary-light border-l-opacity-gray rounded-full animate-spin `}
-                        ></div>
-                    </div>
-                )}
-            </div>
-            <div className="w-full lg:w-2/3 flex flex-row justify-between items-center px-2 md:px-4 gap-4 ">
-                {/* menu element */}
-                <div onClick={clickShowMenu} className="hover:text-primary-main p-2 cursor-pointer select-none">
-                    <TfiMenu className="text-xl" />
-                </div>
+            {/* image element */}
+            <ImageAudio audio={audio} isPlaying={isPlaying} isLoading={isLoading} />
 
-                {/* next pause prev element */}
-                <div className="w-7/12 lg:w-6/12 flex flex-row justify-between items-center">
-                    <ButtonPrev
-                        onClick={() => {
-                            // onClickPrev(audio);
-                            onClickPrevAudio();
-                        }}
-                    />
-                    <Button onClick={handleClick} classN="rounded-full p-2 bg-primary-main hover:text-white">
-                        {isPlaying ? (
-                            <FaPause className="text-xl md:text-base" />
-                        ) : (
-                            <BiSolidRightArrow className="text-xl md:text-base" />
-                        )}
-                    </Button>
-                    <ButtonNext
-                        onClick={() => {
-                            // onClickNext(audio);
-                            onClickNextAudio();
-                        }}
-                    />
-                </div>
-
-                {/* loop element */}
-                <Button onClick={onClickToogleLoop} classN={`rounded-full p-2 ${isLoop ? 'text-primary-main ' : ''} `}>
-                    {/* <div className={`cursor-pointer ${isLoop ? 'text-primary-main' : ''}`} onClick={onClickToogleLoop}> */}
-                    <ImLoop className="text-xl md:text-lg" />
-                </Button>
-                {/* </div> */}
-            </div>
-
+            {/* action audio */}
+            <ActionAudio
+                clickShowMenu={clickShowMenu}
+                isLoop={isLoop}
+                isPlaying={isPlaying}
+                onClickNextAudio={onClickNextAudio}
+                handleTogglePlay={handleTogglePlay}
+                onClickPrevAudio={onClickPrevAudio}
+                onClickToogleLoop={onClickToogleLoop}
+            />
             {/* Audio source */}
             <CustomAudio ref={audioRef} audio={audio} isLoop={isLoop} onClickNext={onClickNextAudio} />
         </Box>

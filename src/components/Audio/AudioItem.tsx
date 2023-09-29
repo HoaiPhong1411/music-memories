@@ -38,7 +38,7 @@ const AudioItem = ({
                 isSelected ? 'bg-primary-dark text-primary-light' : ''
             }`}
         >
-            <img src={audio.image} alt="" className="w-8 h-8 rounded-full" />
+            <img src={audio.image} alt={audio.name} loading="lazy" className="w-8 h-8 rounded-full" />
             <span className="text-sm font-light md:w-[80%] truncate">{audio.name}</span>
         </li>
     );

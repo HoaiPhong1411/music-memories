@@ -40,6 +40,9 @@ export const audioSlice: any = createSlice({
     name: 'audio',
     initialState,
     reducers: {
+        setAudioList(state, aciton) {
+            state.audios = aciton.payload;
+        },
         // Action to set the authentication status
         handleLoadingAudio(state, action) {
             state.isLoading = action.payload;
@@ -62,8 +65,10 @@ export const audioSlice: any = createSlice({
             state.isPlaying = true;
         },
         handlePrevAudio(state, action: { payload?: any; type: string }) {
-            const currentIndex = audios.findIndex((audio) => audio.id === state.audio.id);
-            state.audio = audios[(currentIndex - 1) % audios.length];
+            const currentIndex = audios.findIndex((audio) => {
+                return audio.id === state.audio.id;
+            });
+            state.audio = currentIndex ? audios[(currentIndex - 1) % audios.length] : audios[audios.length - 1];
             state.isLoading = true;
             state.isPlaying = true;
         },
@@ -80,6 +85,7 @@ export const audioSlice: any = createSlice({
 });
 
 export const {
+    setAudioList,
     handleLoadingAudio,
     handleVolumeAudio,
     handleShowVolumeAudio,

@@ -86,4 +86,18 @@ export const audios: AudioType[] = [
         link: '/audio/Thấy-chưa.mp3',
         image: 'https://images.unsplash.com/photo-1520901917283-e38755a7fa7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80',
     },
+    {
+        id: 13,
+        name: 'Mùa xuân đầu tiên',
+        duration: 171,
+        link: '/audio/mua-xuan-dau-tien.mp3',
+        image: 'https://images.unsplash.com/photo-1586348943529-beaae6c28db9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2815&q=80',
+    },
+    {
+        id: 14,
+        name: 'Qua khung cửa sổ',
+        duration: 313,
+        link: '/audio/qua-khung-cua-so-chillies.mp3',
+        image: 'https://images.unsplash.com/photo-1543251698-10f13f004b0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2863&q=80',
+    },
 ];

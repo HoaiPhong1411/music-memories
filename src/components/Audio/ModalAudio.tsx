@@ -62,7 +62,7 @@ const ModalAudio = forwardRef(({ audios }: { audios: AudioType[] }, ref: React.F
         >
             <div
                 ref={modalElementList}
-                className="w-full min-h-2/4 md:w-1/3 md:h-full pt-4 pb-8 bg-opacity-primary flex flex-col justify-start items-center gap-4 rounded-t-md transition-all duration-400 delay-75"
+                className="w-full min-h-2/4 md:w-1/3 md:h-full pt-4 pb-8 backdrop-blur-lg flex flex-col justify-start items-center gap-4 rounded-t-md transition-all duration-400 delay-75"
             >
                 <div className="w-12 h-1 bg-opacity-white rounded-lg"></div>
                 <div className="w-full pl-2 flex flex-col gap-6 md:gap-8 items-center">
