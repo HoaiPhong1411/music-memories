@@ -1,10 +1,7 @@
-import useAudio from '@/hooks/useAudio';
-import useAudioReducer from '@/hooks/useAudioReducer';
 import { handlePickAudio } from '@/redux/slices/audioSlice';
 import { AudioType } from '@/types/audio';
-import { ActionAudioEnum } from '@/types/reducer';
-import React, { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 const AudioItem = ({
     audio,

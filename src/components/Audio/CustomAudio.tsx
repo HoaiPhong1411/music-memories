@@ -1,19 +1,6 @@
-import useAudio from '@/hooks/useAudio';
 import { AudioType } from '@/types/audio';
 import _ from 'lodash';
-import React, {
-    ChangeEvent,
-    KeyboardEvent,
-    ReactNode,
-    Ref,
-    forwardRef,
-    useCallback,
-    useEffect,
-    useImperativeHandle,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import React, { ChangeEvent, ReactNode, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 interface CustomAudioProps {

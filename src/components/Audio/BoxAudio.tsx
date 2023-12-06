@@ -1,32 +1,20 @@
-import React, { ChangeEvent, ChangeEventHandler, MouseEvent, ReactNode, useCallback, useEffect, useRef } from 'react';
-import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
-import { TfiMenu } from 'react-icons/tfi';
-import { ImLoop, ImVolumeHigh, ImVolumeMedium, ImVolumeLow, ImVolumeMute, ImVolumeMute2 } from 'react-icons/im';
-import { FaPause } from 'react-icons/fa';
-import useAudio from '@/hooks/useAudio';
-import _ from 'lodash';
-import Image from 'next/image';
-import Button from '../ui/Button';
-import Box from '../ui/Box';
-import CustomAudio from './CustomAudio';
-import { useDispatch, useSelector } from 'react-redux';
 import {
     handleLoadingAudio,
     handleLoopAudio,
     handleNextAudio,
     handlePauseAudio,
-    handlePickAudio,
     handlePlayAudio,
     handlePrevAudio,
-    handleShowVolumeAudio,
     handleVolumeAudio,
 } from '@/redux/slices/audioSlice';
-import { useLocalStorage } from 'react-use';
-import { localStorageEnum } from '@/types/localStorage';
-import { audios } from '@/data/audios';
-import TitleAudio from './TitleAudio';
-import ImageAudio from './ImageAudio';
+import { ChangeEvent, useEffect, useRef } from 'react';
+import { ImLoop } from 'react-icons/im';
+import { useDispatch, useSelector } from 'react-redux';
+import Box from '../ui/Box';
 import ActionAudio from './ActionAudio';
+import CustomAudio from './CustomAudio';
+import ImageAudio from './ImageAudio';
+import TitleAudio from './TitleAudio';
 import VolumeAudio from './VolumeAudio';
 
 const BoxAudio = ({ clickShowMenu }: { clickShowMenu: () => void }) => {

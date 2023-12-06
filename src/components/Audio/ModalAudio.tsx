@@ -10,6 +10,7 @@ type ModalAudioType = {
 const ModalAudio = forwardRef(({ audios }: { audios: AudioType[] }, ref: React.ForwardedRef<ModalAudioType>) => {
     const modalRef = useRef<any>(null);
     const modalElementList = useRef<any>(null);
+    console.log('run', audios);
 
     useImperativeHandle(ref, () => ({
         hidden: () => handleHidden(),

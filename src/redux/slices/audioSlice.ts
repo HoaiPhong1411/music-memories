@@ -1,9 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { AudioType } from '@/types/audio';
 import { audios } from '@/data/audios';
-import _ from 'lodash';
+import { AudioType } from '@/types/audio';
 import { getvolumeLocalstorage } from '@/utils/localstorage';
-import storage from 'redux-persist/lib/storage';
+import { createSlice } from '@reduxjs/toolkit';
+import _ from 'lodash';
 
 // Type for our state
 export interface AudioState {
