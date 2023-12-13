@@ -34,11 +34,11 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: rgb(44 19 58 / 50%);
+    background: #46312b;
     border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(44 19 58 / 50%);
+    background: #46312b;
 }

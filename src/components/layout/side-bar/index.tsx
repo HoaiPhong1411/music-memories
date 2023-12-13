@@ -15,15 +15,23 @@ interface ISideBarProps {}
 
 const SideBar = (props: ISideBarProps) => {
     return (
-        <aside className="w-[240px] bg-grey-primary-main h-[calc(100vh-90px)] flex flex-col gap-3">
-            <div className="pl-4">
-                <Logo />
+        <aside className="w-[240px] relative bg-grey-primary-main h-[calc(100vh-90px)] flex flex-col justify-between">
+            <div className="flex flex-col gap-3 overflow-y-auto">
+                <div className="pl-4">
+                    <Logo />
+                </div>
+                <div className="overflow-y-auto">
+                    <MenuList menus={menuMain} />
+                    <Divider className="my-2" variant="middle" />
+                    <MenuList menus={menuSecond} />
+                    <SubscriptionButton />
+                </div>
             </div>
-            <MenuList menus={menuMain} />
-            <Divider className="my-2" variant="middle" />
-            <MenuList menus={menuSecond} />
-            <SubscriptionButton />
-            <MenuItem menu={menuBottom} />
+
+            <div className="">
+                <Divider className="mb-2" variant="middle" />
+                <MenuItem menu={menuBottom} />
+            </div>
         </aside>
     );
 };
